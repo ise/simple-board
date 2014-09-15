@@ -1,5 +1,8 @@
 package controllers
 
+import java.security.MessageDigest
+import java.util.UUID
+
 import play.api._
 import play.api.data.Form
 import play.api.data.Forms._
@@ -14,12 +17,22 @@ object Application extends Controller {
       .verifying("投稿内容を入力してください", {_.length > 0})
   )
 
+  def generateUserCookie: Cookie = {
+    val h = MessageDigest.getInstance("SHA1").digest(UUID.randomUUID().toString.getBytes)
+    val id = h.map{ b => "%02x".format(b) }.mkString
+    Cookie("user_id", id, Option(60 * 60 * 24 * 7))
+  }
+
   def index = TODO
   def thread(threadId: Long) = Action { implicit request => {
+    val cookie = request.cookies.get("user_id").getOrElse(generateUserCookie)
     val res = Response.findAllByThreadId(threadId)
-    Ok(views.html.thread(postForm)(Thread.findOpened.head)(res))
+    Ok(views.html.thread(postForm)(Thread.findOpened.head)(res)).withCookies(
+      cookie
+    )
   }}
   def postResponse = Action { implicit request => {
+    val cookie = request.cookies.get("user_id").getOrElse(generateUserCookie)
     //thread_idチェック
     val threadId = request.getQueryString("thread_id").getOrElse("1").toInt
     postForm.bindFromRequest.fold(
@@ -29,7 +42,7 @@ object Application extends Controller {
         Ok(views.html.thread(formWithErrors)(thread)(res))
       },
       message => {
-        Response.create(message, "user1", threadId)
+        Response.create(message, cookie.value, threadId)
         Redirect(routes.Application.thread(threadId)).flashing("success" -> "投稿が完了しました")
       }
     )
