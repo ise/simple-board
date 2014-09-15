@@ -15,10 +15,10 @@ object Application extends Controller {
   )
 
   def index = TODO
-  def thread(threadId: Long) = Action {
+  def thread(threadId: Long) = Action { implicit request => {
     val res = Response.findAllByThreadId(threadId)
     Ok(views.html.thread(postForm)(Thread.findOpened.head)(res))
-  }
+  }}
   def postResponse = Action { implicit request => {
     //thread_idチェック
     val threadId = request.getQueryString("thread_id").getOrElse("1").toInt
@@ -30,7 +30,7 @@ object Application extends Controller {
       },
       message => {
         Response.create(message, "user1", threadId)
-        Redirect(routes.Application.thread(threadId))
+        Redirect(routes.Application.thread(threadId)).flashing("success" -> "投稿が完了しました")
       }
     )
   }}

@@ -1,6 +1,11 @@
-@(postForm: Form[String])(thread: Thread)(responses: Seq[Response])
+@(postForm: Form[String])(thread: Thread)(responses: Seq[Response])(implicit flash: Flash)
 
 @main(thread.title + " | simple board") {
+
+@(flash.get("success") match {
+case Some(message) => Html("""<p class="success">""" + message + """</p>""")
+case None =>
+})
 
 <p><a href="/">TOP</a></p>
 
