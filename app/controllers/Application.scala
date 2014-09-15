@@ -9,7 +9,9 @@ import models._
 object Application extends Controller {
 
   val postForm = Form(
-    single("message" -> nonEmptyText(maxLength = 140))
+    "message" -> text
+      .verifying("投稿できる文字数は140文字までです", {_.length <= 140})
+      .verifying("投稿内容を入力してください", {_.length > 0})
   )
 
   def index = TODO

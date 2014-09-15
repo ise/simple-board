@@ -2,6 +2,8 @@
 
 @main(thread.title + " | simple board") {
 
+<p><a href="/">TOP</a></p>
+
 <h1 class="thread-title">@thread.title</h1>
 
 <div>
@@ -21,7 +23,11 @@
     <p>レスを付ける</p>
     @helper.form(action = routes.Application.postResponse, 'class -> "pure-form pure-form-stacked") {
     <fieldset>
-        <textarea id="message" name="message" rows="5" cols="70"></textarea>
+        <textarea id="message" name="message" rows="5" cols="70">@postForm("message").value</textarea>
+        @(postForm.error("message") match {
+        case Some(error) => Html("""<p class="error">""" + error.message + """</p>""")
+        case None =>
+        })
         <input name="thread_id" type="hidden" value="@thread.id">
         <button type="submit" class="pure-button pure-button-primary">post</button>
     </fieldset>
