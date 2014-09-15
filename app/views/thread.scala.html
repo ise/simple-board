@@ -2,19 +2,23 @@
 
 @main(title + " | simple board") {
 
-        <div>
-            @helper.form(action = routes.Application.postResponse) {
-            <label for="message">message</label>
-            <textarea id="message" name="message"></textarea>
-            <button type="submit">post</button>
-            }
-        </div>
+<h1 class="thread-title">@title</h1>
 
-        <div>
-            <ul>
-                @responses.map{r =>
-                <li>@r.message</li>
-                }
-            </ul>
-        </div>
+<div>
+    <dl id="thread-body">
+        @responses.zipWithIndex.map {r =>
+        <dt>@(r._2+1) : <span class="screen-name">Anonymous</span> : @r._1.createdAt ID:@r._1.userId</dt>
+        <dd>@r._1.message</dd>
+        }
+    </dl>
+</div>
+
+<div>
+    @helper.form(action = routes.Application.postResponse, 'class -> "pure-form pure-form-stacked") {
+    <fieldset>
+        <textarea id="message" name="message" rows="5" cols="70"></textarea>
+        <button type="submit" class="pure-button pure-button-primary">post</button>
+    </fieldset>
+    }
+</div>
 }

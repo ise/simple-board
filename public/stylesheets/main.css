@@ -1,0 +1,74 @@
+  html {
+      background-color: #EFEFEF;
+  }
+
+  body {
+      word-break: break-all;
+      word-wrap: break-word;
+      margin: 10px;
+  }
+
+  h1.thread-title {
+      color: #FF0000;
+      font-size:larger;
+      font-weight:normal;
+      margin: 0 0 0;
+  }
+
+  .screen-name {
+      color: #008800;
+      font-weight:bold;
+  }
+
+  table.header-menu {
+      border:solid #888;
+      border-width:0 0 1px 0;
+      margin-bottom:2px;
+  }
+
+  div.header-menu {
+      padding-bottom: 3px;
+      margin-bottom: 2px;
+      border-bottom: solid #888 1px;
+  }
+
+  div.limit-over {
+      background-color: red;
+      color: white;
+      line-height: 3em;
+      margin: 1px;
+      padding:1px;
+  }
+
+  div.limit-alert {
+      background-color: red;
+      color: white;
+      margin: 1px;
+      padding: 1px;
+  }
+
+  div.limit-warn {
+      background-color: yellow;
+      margin: 1px;
+      padding: 1px;
+  }
+
+  #thread-body-wrapper {
+      float: left;
+      margin-right: -200px;
+      width: 100%;
+  }
+
+  #thread-body {
+      margin-right: 200px;
+  }
+
+  #header-text-ad {
+      height: 30px;
+      padding-top: 10px;
+  }
+
+  .highlighted {
+      font-weight: bold;
+      background-color: yellow;
+  }
