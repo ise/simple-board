@@ -15,14 +15,19 @@ case class Thread(id: Long,
                   deletedAt: Option[Date] = None)
 
 object Thread {
-
-  val dummy = Thread(1, "テスト用スレッド", "admin", false, new DateTime("2014-09-01").toDate())
+  val defaultId: Long = 1
+  val dummy = Thread(defaultId, "テスト用スレッド", "admin", false, new DateTime("2014-09-01").toDate())
 
   def findOpened: List[Thread] = {
     List(dummy)
   }
   def findById(id: Long): Thread = {
     dummy
+  }
+
+  def isValid(id: Long): Boolean = {
+    // Threadが存在する && Closedでない
+    dummy.id == id
   }
 
 }
