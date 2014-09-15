@@ -11,7 +11,7 @@ import models._
 @RunWith(classOf[JUnitRunner])
 class ResponseSpec extends Specification {
   "Response Model" should {
-    "スレッドIDからレスポンス取得できる" in new WithApplication {
+    "スレッドIDからレスポンスを取得できる" in new WithApplication {
       val threadId = 1
       Response.create("test", "user1", threadId)
       val responses = Response.findAllByThreadId(threadId)
