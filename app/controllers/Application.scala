@@ -9,22 +9,28 @@ import models._
 object Application extends Controller {
 
   val postForm = Form(
-    single("message" -> nonEmptyText)
+    single("message" -> nonEmptyText(maxLength = 140))
   )
 
   def index = TODO
   def thread(threadId: Long) = Action {
     val res = Response.findAllByThreadId(threadId)
-    Ok(views.html.thread(postForm)("test")(res))
+    Ok(views.html.thread(postForm)(Thread.findOpened.head)(res))
   }
-  def postResponse = Action { implicit request =>
+  def postResponse = Action { implicit request => {
+    //thread_idチェック
+    val threadId = request.getQueryString("thread_id").getOrElse("1").toInt
     postForm.bindFromRequest.fold(
-      formWithErrors => BadRequest(views.html.thread(postForm)("test")(null)),
+      formWithErrors => {
+        val thread = Thread.findById(threadId)
+        val res = Response.findAllByThreadId(threadId)
+        Ok(views.html.thread(formWithErrors)(thread)(res))
+      },
       message => {
-        Response.create(message, "user1", 1)
-        Redirect(routes.Application.thread(1))
+        Response.create(message, "user1", threadId)
+        Redirect(routes.Application.thread(threadId))
       }
     )
-  }
+  }}
 
 }
