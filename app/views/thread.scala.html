@@ -1,0 +1,20 @@
+@(postForm: Form[String])(title: String)(responses: Seq[Response])
+
+@main(title + " | simple board") {
+
+        <div>
+            @helper.form(action = routes.Application.postResponse) {
+            <label for="message">message</label>
+            <textarea id="message" name="message"></textarea>
+            <button type="submit">post</button>
+            }
+        </div>
+
+        <div>
+            <ul>
+                @responses.map{r =>
+                <li>@r.message</li>
+                }
+            </ul>
+        </div>
+}
