@@ -1,8 +1,8 @@
-@(postForm: Form[String])(title: String)(responses: Seq[Response])
+@(postForm: Form[String])(thread: Thread)(responses: Seq[Response])
 
-@main(title + " | simple board") {
+@main(thread.title + " | simple board") {
 
-<h1 class="thread-title">@title</h1>
+<h1 class="thread-title">@thread.title</h1>
 
 <div>
     <dl id="thread-body">
@@ -17,6 +17,7 @@
     @helper.form(action = routes.Application.postResponse, 'class -> "pure-form pure-form-stacked") {
     <fieldset>
         <textarea id="message" name="message" rows="5" cols="70"></textarea>
+        <input name="thread_id" type="hidden" value="@thread.id">
         <button type="submit" class="pure-button pure-button-primary">post</button>
     </fieldset>
     }
