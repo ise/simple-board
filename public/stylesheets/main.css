@@ -72,3 +72,7 @@
       font-weight: bold;
       background-color: yellow;
   }
+
+  div.post-module {
+      margin: 5px;
+  }

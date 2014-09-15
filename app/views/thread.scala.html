@@ -5,15 +5,20 @@
 <h1 class="thread-title">@thread.title</h1>
 
 <div>
+    @if(responses.isEmpty){
+    <p>レス無し</p>
+    }else{
     <dl id="thread-body">
         @responses.zipWithIndex.map {r =>
         <dt>@(r._2+1) : <span class="screen-name">Anonymous</span> : @r._1.createdAt ID:@r._1.userId</dt>
         <dd>@r._1.message</dd>
         }
     </dl>
+    }
 </div>
-
-<div>
+<hr>
+<div class="post-module">
+    <p>レスを付ける</p>
     @helper.form(action = routes.Application.postResponse, 'class -> "pure-form pure-form-stacked") {
     <fieldset>
         <textarea id="message" name="message" rows="5" cols="70"></textarea>
