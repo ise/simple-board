@@ -1,4 +1,13 @@
-This is your new Play application
-=================================
+#### 実行方法
 
-This file will be packaged with your application, when using `activator dist`.
+```
+$ ./activator run
+```
+
+#### URL
+http://localhost:9000/
+
+#### ライブラリ
+
+- https://github.com/stewartlord/identicon.js/tree/master
+
