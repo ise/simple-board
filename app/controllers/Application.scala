@@ -19,7 +19,7 @@ object Application extends Controller {
   def generateUserCookie: Cookie = {
     val h = MessageDigest.getInstance("SHA1").digest(UUID.randomUUID().toString.getBytes)
     val id = h.map{ b => "%02x".format(b) }.mkString
-    Cookie("user_id", id, Option(60 * 60 * 24 * 7))
+    Cookie("user_id", id, Option(60 * 60 * 1))
   }
 
   def cookie(request: Request[AnyContent]): Cookie = {

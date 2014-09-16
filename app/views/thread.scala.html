@@ -1,5 +1,5 @@
-@(postForm: Form[String])(thread: Thread)(responses: Seq[Response])(implicit flash: Flash)
-
+@(postForm: Form[String])(thread: Thread)(responses: Seq[Response])(implicit flash: Flash, request: RequestHeader)
+@import helper._
 @main(thread.title + " | simple board") {
 
 @(flash.get("success") match {
@@ -46,6 +46,7 @@ case None =>
         case None =>
         })
         <input name="thread_id" type="hidden" value="@thread.id">
+        @CSRF.formField
         <button type="submit" class="pure-button pure-button-primary">post</button>
     </fieldset>
     }
